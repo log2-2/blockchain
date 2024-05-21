@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="common.css">
+    <title>PoW</title>
+  </head>
+  <body>
+    <header><h1>PoW（Proof of Work）</h1></header>
+
+    <main>
+
+    </main>
+
+    <footer>&copy;2024 Enishi Tsuda</footer>
+    <script>
+      fetch("utxo.json")
+        .then((response) => response.text())
+        .then((data) => (document.querySelector("#sampleUTXO").innerHTML = data));
+    </script>
+  </body>
+</html>

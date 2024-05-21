@@ -1,0 +1,54 @@
+* {
+  background-color: black;
+}
+
+body {
+  color: lightgray;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+footer {
+  border-top: 1px solid lightgray;
+  text-align: end;
+  margin-top: 50px;
+  padding: 10px 0 0;
+}
+
+h2 {
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  margin-top: 50px;
+}
+
+a {
+  color: lightskyblue;
+}
+
+table {
+  border: 1px solid lightgray;
+  border-collapse: collapse;
+  text-align: center;
+  margin: 10px;
+}
+
+th, td {
+  border: 1px solid lightgray;
+  padding: 2px 5px;
+}
+
+pre {
+  border: 1px solid gray;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 50px;
+}
+
+
+
+
+
+
+
+

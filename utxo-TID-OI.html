@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="common.css">
+    <title>TID-OI</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="utxo.html">UTXO</a> / Transaction ID, Output Index</h1>
+    </header>
+    <main>
+      <h2>Transaction ID</h2>
+      <p>トランザクションIDは、特定のトランザクション全体を識別するための一意の識別子。</p>
+      <ul>
+        <li>生成方法：　トランザクション全体の内容（Inputs、Outputs、その他のトランザクション情報）に対してSHA-256ハッシュ関数を二重に適用することで生成される。</li>
+        <li>役割：　ブロックチェーン上の特定のトランザクションを一意に識別する。</li>
+        <li>利用例：　他のトランザクションがInputsとして使用するUTXOを指し示すときに、Transaction IDを参照する。</li>
+      </ul>
+      
+      <h2>Output Index</h2>
+      <p>Output Indexは、特定のトランザクション内での特定のOutputを識別するための番号。</p>
+      <ul>
+        <li>生成方法：　トランザクション内のOutputのリストにおける位置を示す番号。トランザクションのOutputはリストとして構成され、それぞれのOutputには0から始まるインデックス番号が付けられる。</li>
+        <li>役割：　特定のトランザクションのどのOutputを指しているかを示します。同一トランザクション内の複数のOutputを区別するために使用される。</li>
+        <li>利用例：　あるトランザクションが過去のトランザクションの特定のUTXOを入力として使用するとき、そのUTXOがどのトランザクションのどのOutputであるかを指定するために、Output Indexを参照する。</li>
+      </ul>
+  
+      <h2>Transaction ID, Output Indexの具体例</h2>
+      <p>Aliceが１つのトランザクションで２つのOutputを持つことを考える。</p>
+      <table>
+        <tr>
+          <th rowspan="2">Transaction ID</th>
+          <th colspan="3">Outputs</th>
+        </tr>
+        <tr>
+          <th>Output Index</th>
+          <th>Address</th>
+          <th>Amount</th>
+        </tr>
+        <tr>
+          <td rowspan="2">tx1</td>
+          <td>0</td>
+          <td>Alice's Address</td>
+          <td>0.5BTC</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Alice's Address</td>
+
+          <td>0.3BTC</td>
+        </tr>
+      </table>
+      <p>もしBobがAliceのトランザクションの0.5BTCを使用して新しいトランザクションを作成する場合、Bobの新しいトランザクションのInputsには以下の情報が含まれる。</p>
+      <ul>
+        <li>Transaction ID：　tx1</li>
+        <li>Output Index：　0</li>
+      </ul>
+      <p>これにより、BobがAliceのトランザクションの最初のOutput（0.5BTC）を使用していることを明確に示す。</p>
+  
+      <h2>複数のInput/Outputが含まれる場合</h2>
+  
+      <p>次のような場合、１つのトランザクションに複数のInputが含まれる。</p>
+      <ul>
+        <li>１つのOutputでは必要な支払金額に満たない場合。</li>
+      </ul>
+      <p>次のような場合、１つのトランザクションに複数のOutputが含まれる。</p>
+      <ul>
+        <li>送金後の残高をおつりとして返す場合。</li>
+        <li>複数の受信者に送金する場合。</li>
+      </ul>
+      
+      <h2>複数のUTXOを使用する場合の具体例</h2>
+  
+      <p>Aliceが以下のような未使用のOutputを所有しており、Bobに0.8BTCを送ることを考える。</p>
+      <table>
+        <tr>
+          <th rowspan="2">Transaction ID</th>
+          <th colspan="3">Outputs</th>
+        </tr>
+        <tr>
+          <th>Output Index</th>
+          <th>Address</th>
+          <th>Amount</th>
+        </tr>
+        <tr>
+          <td>tx1</td>
+          <td>0</td>
+          <td>Alice's Address</td>
+          <td>0.3BTC</td>
+        </tr>
+        <tr>
+          <td>tx2</td>
+          <td>1</td>
+          <td>Alice's Address</td>
+          <td>0.2BTC</td>
+        </tr>
+        <tr>
+          <td>tx3</td>
+          <td>2</td>
+          <td>Alice's Address</td>
+          <td>0.4BTC</td>
+        </tr>
+      </table>
+      <p>この場合、単一のUTXOでは0.8BTCに満たないため、AliceはUTXO1、UTXO2、及びUTXO3を全て使用する。新しいトランザクションは以下のように構成される。</p>
+      <table>
+        <tr>
+          <th>
+            Transaction ID
+          </th>
+        </tr>
+        <tr>
+          <td>
+            tx4
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <th colspan="2">Inputs</th>
+        </tr>
+        <tr>
+          <th>Transaction Id</th>
+          <th>Output Index</th>
+        </tr>
+        <tr>
+          <td>tx1</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>tx2</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>tx3</td>
+          <td>2</td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <th colspan="3">Outputs</th>
+        </tr>
+        <tr>
+          <th>Output Index</th>
+          <th>Address</th>
+          <th>Amount</th>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>Bob's Address</td>
+          <td>0.8BTC</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Alice's Address</td>
+          <td>0.1BTC</td>
+        </tr>
+      </table>
+      これにより、Inputsとして計0.9BTCを指定し、OutputsとしてBobに0.8BTC、Aliceに0.1BTCを指定することができ、AliceはBobに0.8BTCを送ることができる。
+    </main>
+    <footer>&copy;2024 Enishi Tsuda</footer>
+  </body>
+</html>

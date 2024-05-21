@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="common.css">
+    <title>UTXO</title>
+  </head>
+  <body>
+    <header><h1>UTXO (Unspent Transaction Output)</h1></header>
+
+    <main>
+      <h2>UTXO形式のトランザクションの基本構造</h2>
+  
+      <p>UTXO形式のトランザクションは、主に「Inputs」と「Outputs」から構成される。</p>
+  
+      <h3>Inputs</h3>
+  
+      <p>Inputsには以下の情報が含まれる。</p>
+      <ul>
+        <li><a href="utxo-TID-OI.html">Transaction ID</a>：　過去のトランザクションを識別するための一意の識別子</li>
+        <li><a href="utxo-TID-OI.html">Output Index</a>：　過去のトランザクション内の具体的なUTXOを識別するためのインデックス番号</li>
+        <li>Signature：　送信者の秘密鍵を用いて生成されたデジタル署名。これにより、送信者がそのUTXOを所有していることを証明する。</li>
+        <li>Public Key：　送信者の公開鍵。受信者やネットワークノードがデジタル署名を検証するために使用する。</li>
+      </ul>
+  
+      <h3>Outputs</h3>
+  
+      <p>Outputsには以下の情報が含まれる。</p>
+      <ul>
+        <li>Address：　受信者の公開鍵のハッシュ（一般的にビットコインアドレス形式）。これにより、受信者が特定される。</li>
+        <li>Amount：　受信者に送られるビットコインの金額。この金額が新しいUTXOとして生成される。</li>
+      </ul>
+  
+      <h3>その他の情報</h3>
+      <ul>
+        <li>Locktime（オプション）：　トランザクションが有効になる時間またはブロック番号。これにより、トランザクションが指定された時間またはブロックまで実行されないようにできる。</li>
+      </ul>
+  
+      <h2>UTXO形式のトランザクションの具体例</h2>
+      <pre>
+        <div id="sampleUTXO"></div>
+      </pre>
+  
+      <h2>UTXO形式のトランザクションの流れ</h2>
+  
+      <p>トランザクションを実行する際、以下のステップを経て情報がやり取りされる。</p>
+  
+      <h3>１：トランザクションの作成</h3>
+      <p>送信者が新しいトランザクションを作成する。過去のトランザクションから未使用のUTXOをInputsとして選択し、新しい Outputs を定義する。</p>
+  
+      <h3>２：デジタル署名の生成</h3>
+      送信者は自身の秘密鍵を用いてトランザクションにデジタル署名を行う。この署名はInputsに含まれる。
+  
+      <h3>３：トランザクションのブロードキャスト</h3>
+      署名されたトランザクションはネットワークにブロードキャストされる。ネットワークノードがこれを受信し、検証を行う。
+  
+      <h3>４：検証と承認</h3>
+      <p>各ネットワークノードは以下の確認を行う。</p>
+      <ul>
+        <li>Inputsが有効な未使用の UTXO であること。</li>
+        <li>デジタル署名が有効であること。</li>
+        <li>Inputsの合計額がOutputsの合計額以上であること。</li>
+      </ul>
+  
+      <h3>５：ブロックへの追加</h3>
+      <p>トランザクションが有効と判断された場合、マイナーによってブロックに含まれ、ブロックチェーンに追加される。</p>
+    </main>
+    <footer>&copy;2024 Enishi Tsuda</footer>
+    <script>
+      fetch("utxo.json")
+        .then((response) => response.text())
+        .then((data) => (document.querySelector("#sampleUTXO").innerHTML = data));
+    </script>
+  </body>
+</html>
